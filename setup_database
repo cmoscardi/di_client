@@ -1,0 +1,31 @@
+#!/usr/bin/python
+import pymongo as db
+
+
+def get_database_connection():
+    connection = db.MongoClient('localhost', 27017).data_incubator
+    return connection
+
+
+def create_user():
+    database = get_database_connection()
+    database.users.insert({"name": "michael"})
+
+def create_answers():
+    database = get_database_connection()
+    database.answers.insert(
+    {
+        "name": "add",
+        "test_cases": [ 
+            {
+            "name": "2 + 3 = 5",
+            "args": (2, 3),
+            "kwargs": {},
+            "answer": 5
+            }
+        ]
+    })
+create_user()
+print "Test User Created."
+create_answers()
+print "Test Answer Created."
